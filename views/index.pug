@@ -1,0 +1,41 @@
+html
+head
+
+body
+    h1= 'My title: '
+
+    table(style='width:100%', border='1')
+        tr
+            th='title'
+            th='description'
+            th='category'
+            th='del'
+        each val in tasks
+            tr
+                form(action=`/task`, method='POST')
+                    td= val.title
+                    td= val.description
+                    td= val.category
+                    td
+                        input(type='submit', value='delete' name=val._id)
+                        p title:
+                        input(type="text" name="title" placeholder="Title ")
+                        p description:
+                        input(type="test" name="description" placeholder="Description ")
+                        input(type='submit', value='edit' name=val._id)
+
+    form(action='/tasks', method='POST')
+        p Actual Date:
+            select(name = 'value')
+                each time, index in dataTime
+                    option(value=time) #{time}
+            select(name = 'value')
+                each value, index in dataValue
+                    option(value=value) #{value}
+            p title:
+            input(type="text" name="title" placeholder="Title ")
+            p description:
+            input(type="test" name="description" placeholder="Description ")
+            p cat:
+            input(type="test" name="category" placeholder="category ")
+            input(type="submit" value='Submit')
