@@ -13,6 +13,17 @@ const getAll = async (req, res) => {
 
 }
 
+const getCategoryById = async (id) => {
+
+    try {
+        const allTasks = await Categories.findOne({_id: id})
+        return allTasks;
+    } catch (err) {
+        console.error(err.message || err);
+    }
+
+}
+
 const create = async (req, res) => {
     const {category = 'news'} = req.body;
     try {
@@ -37,4 +48,4 @@ const deleteCategory = async (req, res) => {
 }
 
 
-export default {getAll, create, deleteCategory}
+export default {getAll, create, deleteCategory, getCategoryById}

@@ -8,17 +8,19 @@ const CATEGORY = ['news'];
 const urlRedirect = '/tasks'
 
 const getAll = async (req, res) => {
-
     try {
-        const allTasks = await Tasks.find().sort({'updatedAt': -1})
+        const allTasks = await Tasks.find().sort({'updatedAt': -1});
+        const allCategory = await Categories.find();
         if (allTasks) {
             res.render('index', {
                 CATEGORY,
                 dataTime,
                 dataValue,
                 tasks: allTasks,
+                allCategory,
                 message: 'Hello there!',
             })
+
         }
         ;
 
@@ -31,18 +33,24 @@ const getAll = async (req, res) => {
 const create = async (req, res) => {
 
     const {title, description, actualDate, category} = req.body;
+    console.log(req.body)
+    let cat;
     try {
-        const cat = await Categories.findOne({category})
+        cat = await Categories.findOne({category})
+        console.log(cat)
         if (!cat) {
-            await Categories.create({
+            cat = await Categories.create({
                 category
             })
         }
-        res.send(await Tasks.create({
+        await Tasks.create({
             title,
             description,
             actualDate,
-        }))
+            categoryName: cat.category
+
+        })
+        res.redirect(urlRedirect)
 
 
     } catch (err) {
@@ -52,7 +60,7 @@ const create = async (req, res) => {
 
 const deleteTask = async (req, res) => {
     if (Object.values(req.body)[0] === 'edit') {
-        res.redirect('/edit')
+        console.log(req.body)
     } else {
         try {
             await Tasks.deleteOne({

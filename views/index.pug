@@ -2,27 +2,36 @@ html
 head
 
 body
-    h1= 'My title: '
+-let i = 0;
+
+h1= 'My title: '
 
     table(style='width:100%', border='1')
         tr
             th='title'
             th='description'
             th='category'
+            th='Actual'
             th='del'
         each val in tasks
             tr
                 form(action=`/task`, method='POST')
-                    td= val.title
-                    td= val.description
-                    td= val.category
-                    td
-                        input(type='submit', value='delete' name=val._id)
-                        p title:
-                        input(type="text" name="title" placeholder="Title ")
-                        p description:
-                        input(type="test" name="description" placeholder="Description ")
-                        input(type='submit', value='edit' name=val._id)
+                     td(style='width:30%')
+                         p=val.title
+                            //form(action=`/task11`, method='POST')
+                            input(type="text" name="title2" placeholder="Title ")
+                            //input(type='submit')
+                     td(style='width:50%')
+                         p=val.description
+                         //input(type="text" name="title3" placeholder="Description ")
+                         //input(type='submit')
+                     td= val.categoryName
+                     if val.actualDate > newData
+                         td= 'actual'
+                     else
+                         td= 'no actual'
+                     td
+                          input(type='submit', value='delete' name=val._id)
 
     form(action='/tasks', method='POST')
         p Actual Date:
@@ -37,5 +46,8 @@ body
             p description:
             input(type="test" name="description" placeholder="Description ")
             p cat:
-            input(type="test" name="category" placeholder="category ")
+            p Actual Date:
+            select(name = 'category')
+                each category, index in allCategory
+                    option(value=time) #{category.category}
             input(type="submit" value='Submit')

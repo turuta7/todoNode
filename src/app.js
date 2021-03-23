@@ -3,7 +3,7 @@ import app from './server/index.js'
 
 const url = process.env.DB
 
-const PORT = process.env.PORT || 4050;
+const PORT = process.env.PORT || 3000;
 
 mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}).then(() => {
         console.log('start DB ok');
