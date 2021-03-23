@@ -2,10 +2,50 @@ html
 head
 
 body
--let i = 0;
+
+-const URL = '/task';
+-const URL2 = '/tasksCreate';
 
 h1= 'My title: '
 
+div
+form(action=`${URL2}`, method='POST')
+    p Actual Date:
+    select(name = 'value')
+        each time, index in dataTime
+            option(value=time) #{time}
+    select(name = 'value')
+        each value, index in dataValue
+            option(value=value) #{value}
+    p title:
+    input(type="text" name="title" placeholder="Title ")
+    p description:
+    input(type="test" name="description" placeholder="Description ")
+    p Category:
+    select(name = 'category')
+        each category, index in allCategory
+            option(value=time) #{category.category}
+        input(type="submit" value='Submit')
+div
+form(action=`/addCategory`, method='POST')
+    input(type="test" name="newCategory" placeholder="new Category ")
+    input(type="submit" value='add')
+
+div
+form(action=`/sortCategory`, method='POST')
+    select(name = 'sortCategory')
+        each category, index in allCategory
+            option(value=time) #{category.category}
+    input(type="submit" value='sort')
+
+div
+form(action=`/deleteCategory`, method='POST')
+    select(name = 'category')
+        each category, index in allCategory
+            option(value=time) #{category.category}
+        input(type="submit" value='delete')
+
+div
     table(style='width:100%', border='1')
         tr
             th='title'
@@ -15,39 +55,24 @@ h1= 'My title: '
             th='del'
         each val in tasks
             tr
+                p
+                    td(style='width:30%')
+                        p=val.title
+                            form(action=`${URL}/put`, method='POST')
+                                input(type="text" name="title" placeholder="Edit Title ")
+                                input(type='submit', value='edit' name=val._id  )
+                    td(style='width:50%')
+                        p=val.description
+                            form(action=`${URL}/put`, method='POST')
+                                input(type="text" name="description" placeholder="Edit Description ")
+                                input(type='submit', value='edit' name=val._id  )
                 form(action=`/task`, method='POST')
-                     td(style='width:30%')
-                         p=val.title
-                            //form(action=`/task11`, method='POST')
-                            input(type="text" name="title2" placeholder="Title ")
-                            //input(type='submit')
-                     td(style='width:50%')
-                         p=val.description
-                         //input(type="text" name="title3" placeholder="Description ")
-                         //input(type='submit')
-                     td= val.categoryName
-                     if val.actualDate > newData
-                         td= 'actual'
-                     else
-                         td= 'no actual'
-                     td
-                          input(type='submit', value='delete' name=val._id)
+                    td= val.categoryName
+                    if val.actualDate.getTime() > new Date().getTime()
+                        td= 'actual'
+                    else
+                        td= 'no actual'
+                    td
+                        input(type='submit', value='delete' name= val._id )
 
-    form(action='/tasks', method='POST')
-        p Actual Date:
-            select(name = 'value')
-                each time, index in dataTime
-                    option(value=time) #{time}
-            select(name = 'value')
-                each value, index in dataValue
-                    option(value=value) #{value}
-            p title:
-            input(type="text" name="title" placeholder="Title ")
-            p description:
-            input(type="test" name="description" placeholder="Description ")
-            p cat:
-            p Actual Date:
-            select(name = 'category')
-                each category, index in allCategory
-                    option(value=time) #{category.category}
-            input(type="submit" value='Submit')
+

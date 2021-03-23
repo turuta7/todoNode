@@ -1,10 +1,15 @@
 import express from 'express'
-const router = express.Router()
-
 import controller from '../controllers/categories.js'
 
+const router = express.Router()
+
 router.get('/categories', controller.getAll);
-router.post('/categories', controller.create);
-router.delete('/categories/:id', controller.deleteCategory);
+router.post('/addCategory', controller.create);
+
+//sort
+router.post('/sortCategory', controller.sortCategory)
+
+//delete category
+router.post('/deleteCategory', controller.deleteCategory)
 
 export default router

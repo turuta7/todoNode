@@ -10,4 +10,4 @@ const Categories = new Schema({
     }
 }, {timestamps: true});
 
-export default mongoose.model('Cat', Categories);
+export default mongoose.model('categories', Categories);

@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const Task = new Schema({
-
     title: {
         type: String,
         required: true,
@@ -15,8 +14,6 @@ const Task = new Schema({
     },
     categoryName: {
         type: String,
-        // type: mongoose.Schema.Types.ObjectId,
-        // ref: 'Cat',
     },
     actualDate: {
         type: Date,

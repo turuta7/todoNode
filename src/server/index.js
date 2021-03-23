@@ -6,15 +6,13 @@ import cookieParser from 'cookie-parser'
 import createError from 'http-errors'
 import dotenv from 'dotenv'
 import path from 'path';
-//
-// import users from '../../router/users.js'
+
 import tasks from './routers/tasks.js'
-import categories from "./routers/categories.js"
+import categories from './routers/categories.js'
 
 const __dirname = path.resolve();
 
 dotenv.config()
-
 
 const app = express()
 
@@ -40,7 +38,7 @@ app.use(function (req, res, next) {
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
